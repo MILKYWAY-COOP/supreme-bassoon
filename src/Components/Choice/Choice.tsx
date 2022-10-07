@@ -5,7 +5,7 @@ const Choice = () => {
   return (
     <div className={Styles.main}>
       <div className={Styles.image}>
-        <img src={Elements.Choice} />
+        <img src={Elements.Choice} alt='choice'/>
       </div>
       <div className={Styles.years}>
         <span>2022</span>
