@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { ResultsProvider } from './Context/RContext';
 
 import './index.scss';
 
@@ -10,6 +11,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <ResultsProvider>
+      <App />
+    </ResultsProvider>
   </React.StrictMode>
 );
