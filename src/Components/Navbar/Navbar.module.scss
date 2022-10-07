@@ -5,12 +5,13 @@
   width: 100%;
   display: flex;
   align-items: center;
-  
+  top: 0;
+  left: 0;
+
   @media (max-width: 990px) {
-      position: fixed;
-      align-items: flex-start;
-      flex-direction: column;
-      padding: calc(100vw - 98%) calc(100vw - 90%);
+    align-items: flex-start;
+    flex-direction: column;
+    padding: calc(100vw - 98%) calc(100vw - 90%);
     height: fit-content;
   }
 
