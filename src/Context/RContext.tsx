@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import results2022 from '../Data/2022';
 
 // Create a interface for getCountyTotal, overallTotals
-interface ResultsContext {
+interface IResultsContext {
   getCountyTotal: (county: string) => {
     RaoTotal: number;
     RutoTotal: number;
@@ -16,7 +16,7 @@ interface ResultsContext {
   WajackoyahGeorgeTotal: number;
 }
 
-const ResultsContext = createContext<ResultsContext | null>(null);
+const ResultsContext = createContext<IResultsContext | null>(null);
 
 export const useResultsContext = () => useContext(ResultsContext);
 
