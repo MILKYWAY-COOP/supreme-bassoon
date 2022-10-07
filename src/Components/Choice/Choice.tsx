@@ -9,7 +9,7 @@ const Choice = () => {
       </div>
       <div className={Styles.years}>
         <span>2022</span>
-        <span>2022 - RERUN</span>
+        <span>2017 - RERUN</span>
         <span>2017</span>
         <span>2013</span>
       </div>
