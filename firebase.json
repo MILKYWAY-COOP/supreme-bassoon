@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "milkywayelections",
+    "site": "elections.milkyway",
     "public": "build",
     "ignore": [
       "firebase.json",
