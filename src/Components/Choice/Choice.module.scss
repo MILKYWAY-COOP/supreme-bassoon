@@ -1,0 +1,39 @@
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .image {
+    margin-right: 5em;
+
+    @media (max-width: 990px) {
+      display: none;
+    }
+  }
+
+  .years {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    span {
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: black;
+      padding: 0 10px;
+      border-right: 2px solid rgba(0, 0, 0, 0.4);
+
+      &.active {
+        color: rgb(4, 95, 194);
+      }
+
+      @media (max-width: 990px) {
+        font-size: 1em;
+        font-weight: 600;
+      }
+    }
+  }
+}
