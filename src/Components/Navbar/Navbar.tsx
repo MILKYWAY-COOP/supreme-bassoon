@@ -40,7 +40,7 @@ const Navbar = () => {
     <nav className={Styles.nav}>
       <div className={Styles.main}>
         <div className={Styles.logo}>
-          <img src={Elements.Citizen} />
+          <img src={Elements.Citizen} alt='citizenIMG'/>
         </div>
         <div className={Styles.items}>
           <Menu />
