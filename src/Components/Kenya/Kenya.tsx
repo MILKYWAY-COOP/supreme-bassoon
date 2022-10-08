@@ -47,7 +47,7 @@ const Kenya = () => {
         console.log(element.id);
       });
     });
-  }, [loaded && paths]);
+  }, [loaded, paths]);
 
   //draw a rectangle around each path
   paths?.forEach((path) => {
