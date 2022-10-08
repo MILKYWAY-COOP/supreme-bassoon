@@ -37,7 +37,38 @@ const Kenya = () => {
         path.setAttribute('fill', 'var(--wsr)');
       }
     });
+  }, [loaded, paths, getTopCandidate]);
+
+  // listen for mouseenter on paths
+  useEffect(() => {
+    paths?.forEach((path) => {
+      path.addEventListener('mouseenter', (e) => {
+        const element = e.target as HTMLElement;
+        console.log(element.id);
+      });
+    });
   }, [loaded]);
+
+  //draw a rectangle around each path
+  paths?.forEach((path) => {
+    const rect = path.getBoundingClientRect();
+    // check if mouse is inside rect
+    const mouseInside = (e: MouseEvent) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
+        return true;
+      }
+      return false;
+    };
+
+    // listen for mousemove
+    path.addEventListener('mouseenter', (e) => {
+      const element = e.target as HTMLElement;
+      console.log(element.id);
+    });
+  });
+  // add mouseenter event listener
 
   return (
     <div className={Styles.main} onClick={toggleLoaded}>
