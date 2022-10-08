@@ -47,7 +47,7 @@ const Kenya = () => {
         console.log(element.id);
       });
     });
-  }, [loaded]);
+  }, [loaded && paths]);
 
   //draw a rectangle around each path
   paths?.forEach((path) => {
@@ -66,6 +66,7 @@ const Kenya = () => {
     path.addEventListener('mouseenter', (e) => {
       const element = e.target as HTMLElement;
       console.log(element.id);
+      mouseInside(e);
     });
   });
   // add mouseenter event listener
