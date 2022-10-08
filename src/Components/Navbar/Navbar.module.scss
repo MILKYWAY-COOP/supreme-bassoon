@@ -1,7 +1,7 @@
 .nav {
   padding: calc(100vw - 99%) calc(100vw - 90%);
   background: var(--nav-Gradient);
-  height: 1rem;
+  height: 4rem;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -11,7 +11,7 @@
   @media (max-width: 990px) {
     align-items: flex-start;
     flex-direction: column;
-    padding: calc(100vw - 98%) calc(100vw - 90%);
+    padding: .8rem 2.5rem;
     height: fit-content;
   }
 
@@ -41,7 +41,7 @@
         align-items: center;
         justify-content: flex-start;
         list-style: none;
-
+        
         li {
           margin: 0 1rem;
           font-family: var(--font);
