@@ -6,7 +6,7 @@
 
   --white: #fff;
   --wsr: #facc00;
-  --rao: #122883;
+  --rao: rgb(18, 40, 131);
   --gw: #369128;
   --wm: #781999;
   --orange: #F5931D;
@@ -19,3 +19,12 @@
   margin: 0;
   font-family: var(--font);
 }
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+ svg {
+ 
+ }
