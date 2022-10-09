@@ -6,8 +6,58 @@ import Styles from './Kenya.module.scss';
 
 const Kenya = () => {
   const [loaded, setLoaded] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  const [county, setCounty] = useState<any>(null);
+  const width = (window.innerWidth * 10) / 100;
+
+  // Create an interface for info
+  interface Info {
+    county: string | any;
+    topCandidate: string | any;
+    secondCandidate: string | any;
+    thirdCandidate: string | any;
+    fourthCandidate: string | any;
+    topCandidateVotes: number | any;
+    secondCandidateVotes: number | any;
+    thirdCandidateVotes: number | any;
+    fourthCandidateVotes: number | any;
+    topCandidatePercent: number | any;
+    secondCandidatePercent: number | any;
+    thirdCandidatePercent: number | any;
+    fourthCandidatePercent: number | any;
+    topCandidateColor: string | any;
+    secondCandidateColor: string | any;
+    thirdCandidateColor: string | any;
+    fourthCandidateColor: string | any;
+  }
+
+  const [info, setInfo] = useState<Info>({
+    county: '',
+    topCandidate: '',
+    secondCandidate: '',
+    thirdCandidate: '',
+    fourthCandidate: '',
+
+    topCandidateVotes: 0,
+    secondCandidateVotes: 0,
+    thirdCandidateVotes: 0,
+    fourthCandidateVotes: 0,
+
+    topCandidatePercent: 0,
+    secondCandidatePercent: 0,
+    thirdCandidatePercent: 0,
+    fourthCandidatePercent: 0,
+
+    topCandidateColor: '',
+    secondCandidateColor: '',
+    thirdCandidateColor: '',
+    fourthCandidateColor: ''
+  });
+
   const { Kenya } = Elements;
-  const { getTopCandidate } = useResultsContext()!;
+  const { getTopCandidate, getCountyTotal } = useResultsContext()!;
 
   const toggleLoaded = () => {
     setLoaded(!loaded);
@@ -18,10 +68,11 @@ const Kenya = () => {
   const { current } = kenyaRef;
   const paths = current?.querySelectorAll('path');
 
+  const floatingRef = useRef<HTMLDivElement>(null);
+
   if (loaded === false) {
     setTimeout(() => {
       setLoaded(!loaded);
-      console.log('loaded');
     }, 1);
   }
 
@@ -39,41 +90,120 @@ const Kenya = () => {
     });
   }, [loaded, paths, getTopCandidate]);
 
-  // listen for mouseenter on paths
   useEffect(() => {
     paths?.forEach((path) => {
-      path.addEventListener('mouseenter', (e) => {
+      const mouseInside = (e: MouseEvent) => {
+        setX(e.clientX - width);
+        setY(e.clientY);
+      };
+
+      path.addEventListener('mousemove', (e) => {
+        floatingRef.current!.style.display = 'block';
         const element = e.target as HTMLElement;
-        console.log(element.id);
+        const totals = getCountyTotal(parseInt(element.id.replace('KE-', '')));
+        console.log(totals);
+        const c = element.getAttribute('title');
+        setCounty(c);
+        const {
+          RaoTotal,
+          RutoTotal,
+          WaihigaTotal,
+          WajackoyahTotal,
+          RaoPercentage,
+          RutoPercentage,
+          WaihigaPercentage,
+          WajackoyahPercentage
+        } = totals;
+        const unSorted = {
+          'Raila Odinga': RaoTotal,
+          'Ruto William': RutoTotal,
+          'Waihiga David': WaihigaTotal,
+          'Wajackoyah George': WajackoyahTotal
+        };
+        const sorted = Object.entries(unSorted).sort((a, b) => a[1] - b[1]);
+
+        const unSortedPercent = {
+          'Raila Odinga': RaoPercentage,
+          'Ruto William': RutoPercentage,
+          'Waihiga David': WaihigaPercentage,
+          'Wajackoyah George': WajackoyahPercentage
+        };
+        //sort unSortedPercent
+        const sortedPercent = Object.entries(unSortedPercent).sort(
+          (a, b) => a[1] - b[1]
+        );
+
+        setInfo({
+          ...info,
+          county: c,
+          topCandidate: sorted[3][0],
+          secondCandidate: sorted[2][0],
+          thirdCandidate: sorted[1][0],
+          fourthCandidate: sorted[0][0],
+          topCandidateVotes: sorted[3][1],
+          secondCandidateVotes: sorted[2][1],
+          thirdCandidateVotes: sorted[1][1],
+          fourthCandidateVotes: sorted[0][1],
+          topCandidatePercent: sortedPercent[3][1],
+          secondCandidatePercent: sortedPercent[2][1],
+          thirdCandidatePercent: sortedPercent[1][1],
+          fourthCandidatePercent: sortedPercent[0][1]
+        });
+        mouseInside(e);
+      });
+
+      path.addEventListener('mouseleave', () => {
+        floatingRef.current!.style.display = 'none';
       });
     });
   }, [loaded, paths]);
 
-  //draw a rectangle around each path
-  paths?.forEach((path) => {
-    const rect = path.getBoundingClientRect();
-    // check if mouse is inside rect
-    const mouseInside = (e: MouseEvent) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
-        return true;
-      }
-      return false;
-    };
-
-    // listen for mousemove
-    path.addEventListener('mouseenter', (e) => {
-      const element = e.target as HTMLElement;
-      console.log(element.id);
-      mouseInside(e);
-    });
-  });
-  // add mouseenter event listener
+  // get the viewport width and height
 
   return (
     <div className={Styles.main} onClick={toggleLoaded}>
       <Kenya ref={kenyaRef} />
+
+      <div
+        className={Styles.floatingDiv}
+        ref={floatingRef}
+        style={{
+          top: y,
+          left: x
+        }}
+      >
+        <div className={Styles.title}>
+          <h3>{county}</h3>
+        </div>
+        <div className={Styles.first}>
+          <h4>{info.topCandidate}</h4>
+          <p>
+            {info.topCandidateVotes}
+            <span>({info.topCandidatePercent}%)</span>
+          </p>
+        </div>
+        <div className={Styles.second}>
+          <h4>{info.secondCandidate}</h4>
+          <p>
+            {info.secondCandidateVotes}
+            <span>({info.secondCandidatePercent}%)</span>
+          </p>
+        </div>
+        <div className={Styles.third}>
+          <h4>{info.thirdCandidate}</h4>
+          <p>
+            {info.thirdCandidateVotes}
+            <span>({info.thirdCandidatePercent}%)</span>
+          </p>
+        </div>
+        <div className={Styles.fourth}>
+          <h4>{info.fourthCandidate}</h4>
+          <p>
+            {info.fourthCandidateVotes}
+            <span>({info.fourthCandidatePercent}%)</span>)
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
