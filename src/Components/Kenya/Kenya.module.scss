@@ -1,11 +1,10 @@
 .main {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: fit-content;
+  position: relative;
+
+
   
   svg {
     top: 50%;
@@ -14,10 +13,62 @@
     overflow: hidden;
   }
   
-  
   path {
     stroke-width: .3;
     stroke: #ffffff;
-    cursor: pointer;
+  }
+
+  .floatingDiv {
+    position: absolute;
+    background-color: #FFFDD0;
+    transition: all 0.3s ease;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    padding: 1em;
+    border-radius: 5px;
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      width: 100%;
+      border-bottom: 1px solid #000000;
+      h1 {
+        text-align: left;
+      }
+    }
+    
+    .first, .second, .third, .fourth {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #000000;
+      min-height: 2em;
+      padding: 0.5em 0;
+
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+        margin-right: 10px;
+      }
+
+      p{
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+
+        span {
+          margin-left: .5rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .first, .third {
+      background-color: #f2f2f2;
+    }
   }
 }
