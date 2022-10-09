@@ -156,7 +156,7 @@ const Kenya = () => {
         floatingRef.current!.style.display = 'none';
       });
     });
-  }, [loaded, paths]);
+  }, [loaded, paths, getCountyTotal, info, width]);
 
   // get the viewport width and height
 
