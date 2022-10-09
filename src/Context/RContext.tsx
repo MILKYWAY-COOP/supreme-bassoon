@@ -9,12 +9,19 @@ interface IResultsContext {
     RutoTotal: number;
     WaihigaTotal: number;
     WajackoyahTotal: number;
+    totals: number;
+    RaoPercentage: number;
+    RutoPercentage: number;
+    WaihigaPercentage: number;
+    WajackoyahPercentage: number;
   };
+
   totals: number;
   RailaOdingaTotal: number;
   RutoWilliamTotal: number;
   WaihigaDavidTotal: number;
   WajackoyahGeorgeTotal: number;
+
   getTopCandidate: (county: number) => {
     name: string;
     votes: number;
@@ -68,7 +75,24 @@ export const ResultsProvider = ({ children }: Props) => {
         WajackoyahTotal += results[i].WajackoyahGeorge;
       }
     }
-    return { RaoTotal, RutoTotal, WaihigaTotal, WajackoyahTotal };
+    let totals = RaoTotal + RutoTotal + WaihigaTotal + WajackoyahTotal;
+    //calculate percentages and round to 2 decimal places
+    let RaoPercentage = Math.round((RaoTotal / totals) * 10000) / 100;
+    let RutoPercentage = Math.round((RutoTotal / totals) * 10000) / 100;
+    let WaihigaPercentage = Math.round((WaihigaTotal / totals) * 10000) / 100;
+    let WajackoyahPercentage = Math.round((WajackoyahTotal / totals) * 10000) / 100;
+
+    return {
+      RaoTotal,
+      RutoTotal,
+      WaihigaTotal,
+      WajackoyahTotal,
+      totals,
+      RaoPercentage,
+      RutoPercentage,
+      WaihigaPercentage,
+      WajackoyahPercentage
+    };
   }
 
   // get the top candidate in a county
@@ -82,9 +106,7 @@ export const ResultsProvider = ({ children }: Props) => {
       { name: 'Wajackoyah George', votes: WajackoyahTotal }
     ];
 
-    // sort the candidates by votes
     const sortedCandidates = candidates.sort((a, b) => b.votes - a.votes);
-    // get the candidate with the highest votes
     const topCandidate = sortedCandidates[0];
     return topCandidate;
   }
