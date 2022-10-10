@@ -141,12 +141,10 @@ export const Home = () => {
       <div className={Styles.countyResults}>
         <h1>RESULTS PER COUNTY</h1>
         <div className={Styles.counties}>
-          {counties.map(
-            (county, index) => (
-              (countyNo = countyNo + 1),
-              (<CountyR key={index} countyNo={countyNo} county={county} />)
-            )
-          )}
+          {counties.map((county, index) => {
+            countyNo = countyNo + 1;
+            return <CountyR key={index} countyNo={countyNo} county={county} />;
+          })}
         </div>
       </div>
     </div>
