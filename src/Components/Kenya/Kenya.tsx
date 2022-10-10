@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Elements } from '../../Elements';
 import { useResultsContext } from '../../Context/RContext';
 import Styles from './Kenya.module.scss';
+import { Info } from '../../Elements/types';
 
 const Kenya = () => {
   const [loaded, setLoaded] = useState(false);
@@ -11,27 +12,6 @@ const Kenya = () => {
 
   const [county, setCounty] = useState<any>(null);
   const width = (window.innerWidth * 10) / 100;
-
-  // Create an interface for info
-  interface Info {
-    county: string | any;
-    topCandidate: string | any;
-    secondCandidate: string | any;
-    thirdCandidate: string | any;
-    fourthCandidate: string | any;
-    topCandidateVotes: number | any;
-    secondCandidateVotes: number | any;
-    thirdCandidateVotes: number | any;
-    fourthCandidateVotes: number | any;
-    topCandidatePercent: number | any;
-    secondCandidatePercent: number | any;
-    thirdCandidatePercent: number | any;
-    fourthCandidatePercent: number | any;
-    topCandidateColor: string | any;
-    secondCandidateColor: string | any;
-    thirdCandidateColor: string | any;
-    fourthCandidateColor: string | any;
-  }
 
   const [info, setInfo] = useState<Info>({
     county: '',
@@ -57,7 +37,8 @@ const Kenya = () => {
   });
 
   const { Kenya } = Elements;
-  const { getTopCandidate, getCountyTotal } = useResultsContext()!;
+  const { getTopCandidate, getCountyTotal, getCandidateInfo } =
+    useResultsContext()!;
 
   const toggleLoaded = () => {
     setLoaded(!loaded);
@@ -97,8 +78,8 @@ const Kenya = () => {
         setY(e.clientY);
       };
 
-      path.addEventListener('mousemove', (e) => {
-        floatingRef.current!.style.display = 'block';
+      path.addEventListener('mouseenter', (e) => {
+        floatingRef.current!.style.display = 'flex';
         const element = e.target as HTMLElement;
         const totals = getCountyTotal(parseInt(element.id.replace('KE-', '')));
         console.log(totals);
@@ -178,30 +159,83 @@ const Kenya = () => {
         <div className={Styles.first}>
           <h4>{info.topCandidate}</h4>
           <p>
-            {info.topCandidateVotes}
-            <span>({info.topCandidatePercent}%)</span>
+            {' '}
+            {`     
+            ${info.topCandidateVotes} (${info.topCandidatePercent}%)
+          `}
           </p>
+          <h5>{getCandidateInfo(info.topCandidate)?.party}</h5>
+          <div
+            className={Styles.colorDiv}
+            style={{
+              backgroundColor: `${getCandidateInfo(info.topCandidate)?.color}`,
+              height: '1.2rem',
+              aspectRatio: '1/1',
+              borderRadius: '50%'
+            }}
+          >
+          </div>
         </div>
+
         <div className={Styles.second}>
           <h4>{info.secondCandidate}</h4>
           <p>
-            {info.secondCandidateVotes}
-            <span>({info.secondCandidatePercent}%)</span>
+            {`
+            ${info.secondCandidateVotes} (${info.secondCandidatePercent}%)
+          `}
           </p>
+          <h5>{getCandidateInfo(info.secondCandidate)?.party}</h5>
+          <div
+            className={Styles.colorDiv}
+            style={{
+              backgroundColor: `${
+                getCandidateInfo(info.secondCandidate)?.color
+              }`,
+              height: '1.2rem',
+              aspectRatio: '1/1',
+              borderRadius: '50%'
+            }}
+          ></div>
         </div>
+
         <div className={Styles.third}>
           <h4>{info.thirdCandidate}</h4>
           <p>
-            {info.thirdCandidateVotes}
-            <span>({info.thirdCandidatePercent}%)</span>
+            {`
+            ${info.thirdCandidateVotes} (${info.thirdCandidatePercent}%)
+          `}
           </p>
+          <h5>{getCandidateInfo(info.thirdCandidate)?.party}</h5>
+          <div
+            className={Styles.colorDiv}
+            style={{
+              backgroundColor: `${
+                getCandidateInfo(info.thirdCandidate)?.color
+              }`,
+              height: '1.2rem',
+              aspectRatio: '1/1',
+              borderRadius: '50%'
+            }}
+          ></div>
         </div>
+
         <div className={Styles.fourth}>
           <h4>{info.fourthCandidate}</h4>
           <p>
-            {info.fourthCandidateVotes}
-            <span>({info.fourthCandidatePercent}%)</span>)
+            {`
+            ${info.fourthCandidateVotes} (${info.fourthCandidatePercent}%)
+            `}
           </p>
+          <h5>{getCandidateInfo(info.fourthCandidate)?.party}</h5>
+          <div
+            className={Styles.colorDiv}
+            style={{
+              background: `${getCandidateInfo(info.fourthCandidate)?.color}`,
+              height: '1.2rem',
+              aspectRatio: '1/1',
+              borderRadius: '50%'
+            }}
+          ></div>
         </div>
       </div>
     </div>
