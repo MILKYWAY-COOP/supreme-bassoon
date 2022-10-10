@@ -13,6 +13,9 @@ const Kenya = () => {
   const [county, setCounty] = useState<any>(null);
   const width = (window.innerWidth * 10) / 100;
 
+  //get the viewport width
+  const viewportWidth = window.innerWidth;
+
   const [info, setInfo] = useState<Info>({
     county: '',
     topCandidate: '',
@@ -79,10 +82,9 @@ const Kenya = () => {
       };
 
       path.addEventListener('mouseenter', (e) => {
-        floatingRef.current!.style.display = 'flex';
+        viewportWidth > 900 && (floatingRef.current!.style.display = 'flex');
         const element = e.target as HTMLElement;
         const totals = getCountyTotal(parseInt(element.id.replace('KE-', '')));
-        console.log(totals);
         const c = element.getAttribute('title');
         setCounty(c);
         const {
@@ -109,7 +111,7 @@ const Kenya = () => {
           'Waihiga David': WaihigaPercentage,
           'Wajackoyah George': WajackoyahPercentage
         };
-        //sort unSortedPercent
+       
         const sortedPercent = Object.entries(unSortedPercent).sort(
           (a, b) => a[1] - b[1]
         );
@@ -138,8 +140,6 @@ const Kenya = () => {
       });
     });
   }, [loaded, paths, getCountyTotal, info, width]);
-
-  // get the viewport width and height
 
   return (
     <div className={Styles.main} onClick={toggleLoaded}>
@@ -173,8 +173,7 @@ const Kenya = () => {
               aspectRatio: '1/1',
               borderRadius: '50%'
             }}
-          >
-          </div>
+          ></div>
         </div>
 
         <div className={Styles.second}>
