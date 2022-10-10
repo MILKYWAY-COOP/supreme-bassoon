@@ -4,21 +4,11 @@ import { useResultsContext } from '../../Context/RContext';
 
 export const Rbar = () => {
   const {
-    RailaOdingaTotal,
-    RutoWilliamTotal,
-    WaihigaDavidTotal,
-    WajackoyahGeorgeTotal,
-    totals
+    RaoPercentage,
+    RutoPercentage,
+    WaihigaPercentage,
+    WajackoyahPercentage,
   } = useResultsContext()!;
-
-  function getPercentage(candidateTotal: number, total: number) {
-    return Math.round((candidateTotal / total) * 10000) / 100;
-  }
-
-  const RaoPercentage = getPercentage(RailaOdingaTotal, totals);
-  const RutoPercentage = getPercentage(RutoWilliamTotal, totals);
-  const WaihigaPercentage = getPercentage(WaihigaDavidTotal, totals);
-  const WajackoyahPercentage = getPercentage(WajackoyahGeorgeTotal, totals);
 
   return (
     <div className={Styles.main}>
