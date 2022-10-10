@@ -8,9 +8,12 @@
   --wsr: #facc00;
   --rao: rgb(18, 40, 131);
   --gw: #369128;
-  --wm: #781999;
-  --orange: #F5931D;
+  --wm: #7b5ba4;
+  --orange: #f5931d;
   --grey: #999999;
+  --creme: #fffdd0;
+  --red: #d9080b;
+  --fRed: #fcf5e2;
 }
 
 * {
@@ -23,8 +26,38 @@
 body {
   width: 100vw;
   height: 100vh;
-}
 
- svg {
- 
- }
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--orange);
+    height: 3rem;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: 'Syne Mono', monospace;
+      a {
+        font-family: 'Syne Mono', monospace;
+        color: black;
+      }
+    }
+
+    @media (max-width: 990px) {
+      height: 50px !important;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      p {
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+  }
+}
