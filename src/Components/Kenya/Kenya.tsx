@@ -139,7 +139,7 @@ const Kenya = () => {
         floatingRef.current!.style.display = 'none';
       });
     });
-  }, [loaded, paths, getCountyTotal, info, width]);
+  }, [loaded, paths, getCountyTotal, info, width, viewportWidth]);
 
   return (
     <div className={Styles.main} onClick={toggleLoaded}>
