@@ -1,0 +1,48 @@
+.main {
+  width: 350px;
+  height: auto;
+  // margin: 0 1em 1em 0;
+
+  h2 {
+    width: fit-content;
+    font-size: 2em;
+    border-bottom: 2px solid var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  table {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fRed);
+    padding: 0.5rem;
+    border-top: 8px solid var(--red);
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+
+      th {
+        font-size: 1.5em;
+        font-weight: 600;
+
+      }
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+
+      tr {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+
+        td,
+        th {
+          font-size: 1.2em;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
