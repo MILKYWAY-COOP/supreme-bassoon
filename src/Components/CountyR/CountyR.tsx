@@ -82,7 +82,7 @@ export const CountyR = (props: IProps) => {
       thirdCandidatePercent: sortedPercentages[2],
       fourthCandidatePercent: sortedPercentages[3]
     });
-  }, [props.county]);
+  }, [props.county, sortedTotals, sortedPercentages]);
 
   return (
     <div className={Styles.main}>
