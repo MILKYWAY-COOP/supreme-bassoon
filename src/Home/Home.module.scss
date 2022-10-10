@@ -3,9 +3,10 @@
   flex-direction: column;
   margin: 30px calc(100% - 90%);
 
+
   @media (max-width: 990px) {
     margin: 30px calc(100% - 98%);
-  }  
+  }
   .timeUpdate {
     margin-bottom: 1rem;
     p {
@@ -13,13 +14,13 @@
       font-size: 1rem;
     }
   }
-  
+
   .latest {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    
+
     h1 {
       text-align: center;
       border-bottom: 4px solid var(--orange);
@@ -40,6 +41,61 @@
       font-size: 17px;
       font-weight: 500;
       padding: 5px;
+    }
+  }
+
+  .middle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    & > * {
+      flex: 1;
+    }
+
+    @media (max-width: 1100px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .countyResults {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+    width: 100%;
+
+    // Style the last child
+    & > *:last-child {
+      margin-bottom: 50px;
+    }
+
+    @media (max-width: 1100px) {
+      margin-top: 1em;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      font-weight: 900;
+      letter-spacing: .5px;
+
+      @media (max-width: 990px) {
+        font-size: 2em;
+      }
+    }
+  }
+
+  .counties{
+    width: 100%;	
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
     }
   }
 }
