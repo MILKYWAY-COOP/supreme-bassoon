@@ -1,38 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import results2022 from '../Data/2022';
-
-// Create a interface for getCountyTotal, overallTotals
-interface IResultsContext {
-  results: {};
-  getCountyTotal: (county: number) => {
-    RaoTotal: number;
-    RutoTotal: number;
-    WaihigaTotal: number;
-    WajackoyahTotal: number;
-    totals: number;
-    RaoPercentage: number;
-    RutoPercentage: number;
-    WaihigaPercentage: number;
-    WajackoyahPercentage: number;
-  };
-
-  totals: number;
-  RailaOdingaTotal: number;
-  RutoWilliamTotal: number;
-  WaihigaDavidTotal: number;
-  WajackoyahGeorgeTotal: number;
-
-  getTopCandidate: (county: number) => {
-    name: string;
-    votes: number;
-  };
-}
+import { IResultsContext } from '../Elements/types';
 
 const ResultsContext = createContext<IResultsContext | null>(null);
 
 export const useResultsContext = () => useContext(ResultsContext);
 
-// Create interface for children
 interface Props {
   children: React.ReactNode;
 }
@@ -75,12 +48,13 @@ export const ResultsProvider = ({ children }: Props) => {
         WajackoyahTotal += results[i].WajackoyahGeorge;
       }
     }
+
     let totals = RaoTotal + RutoTotal + WaihigaTotal + WajackoyahTotal;
-    //calculate percentages and round to 2 decimal places
     let RaoPercentage = Math.round((RaoTotal / totals) * 10000) / 100;
     let RutoPercentage = Math.round((RutoTotal / totals) * 10000) / 100;
     let WaihigaPercentage = Math.round((WaihigaTotal / totals) * 10000) / 100;
-    let WajackoyahPercentage = Math.round((WajackoyahTotal / totals) * 10000) / 100;
+    let WajackoyahPercentage =
+      Math.round((WajackoyahTotal / totals) * 10000) / 100;
 
     return {
       RaoTotal,
@@ -111,6 +85,37 @@ export const ResultsProvider = ({ children }: Props) => {
     return topCandidate;
   }
 
+  function getCandidateInfo(candidate: string) {
+    const candidates = [
+      { color: 'var(--rao)', party: 'AZIMIO' },
+      {  color: 'var(--wsr)', party: 'HUSTLER' },
+      {  color: 'var(--wm)', party: 'AGANO' },
+      {  color: 'var(--gw)', party: 'ROOTS' }
+    ];
+
+    if (candidate === 'Raila Odinga') {
+      return candidates[0];
+    } else if (candidate === 'Ruto William') {
+      return candidates[1];
+    }
+    if (candidate === 'Waihiga David') {
+      return candidates[2];
+    }
+    if (candidate === 'Wajackoyah George') {
+      return candidates[3];
+    }
+  }
+
+  function getPercentage(candidateTotal: number, total: number) {
+    return Math.round((candidateTotal / total) * 10000) / 100;
+  }
+
+  const RaoPercentage = getPercentage(RailaOdingaTotal, totals);
+  const RutoPercentage = getPercentage(RutoWilliamTotal, totals);
+  const WaihigaPercentage = getPercentage(WaihigaDavidTotal, totals);
+  const WajackoyahPercentage = getPercentage(WajackoyahGeorgeTotal, totals);
+
+
   return (
     <ResultsContext.Provider
       value={{
@@ -121,7 +126,12 @@ export const ResultsProvider = ({ children }: Props) => {
         totals,
         getCountyTotal,
         results,
-        getTopCandidate
+        getTopCandidate,
+        getCandidateInfo,
+        RaoPercentage,
+        RutoPercentage,
+        WaihigaPercentage,
+        WajackoyahPercentage
       }}
     >
       {children}
