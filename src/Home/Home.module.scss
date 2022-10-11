@@ -66,7 +66,6 @@
     margin-top: 2em;
     width: 100%;
 
-    // Style the last child
     & > *:last-child {
       margin-bottom: 50px;
     }
@@ -91,11 +90,13 @@
     width: 100%;	
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
 
     @media (max-width: 900px) {
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
   }
 }
